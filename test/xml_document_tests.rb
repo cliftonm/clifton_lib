@@ -1,7 +1,7 @@
 require 'test/unit'
-require 'clifton_xml/xml_document'
-require 'clifton_xml/xml_declaration_node'
-require 'clifton_xml/xml_text_writer'
+require 'clifton_lib/xml/xml_document'
+require 'clifton_lib/xml/xml_declaration_node'
+require 'clifton_lib/xml/xml_text_writer'
 
 include CliftonXml
 

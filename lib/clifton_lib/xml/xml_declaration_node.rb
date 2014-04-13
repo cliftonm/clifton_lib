@@ -1,6 +1,6 @@
 require "clifton_lib/version"
-require "clifton_xml/xml_attribute"
-require "clifton_xml/xml_node"
+require "clifton_lib/xml/xml_attribute"
+require "clifton_lib/xml/xml_node"
 
 module CliftonXml
   class XmlDeclarationNode < XmlNode
