@@ -22,17 +22,22 @@ I have several issues with this:
 3. It leverages "method missing", which affects performance and creates an internal DSL which isn't necessary.
 4. Frequently, the parameters are passed as hashes, which I find particularly evil in Ruby as they don't document what the valid parameter-hashes are via function parameters.
 
-Regarding point 4, while may be standard practice in Ruby, this one of the reasons I find Ruby development so much slower -- you're constantly referencing external documentation to know what you can and can't pass in to a function rather than have the IDE tell you what the allowable parameters are.  Maybe I'm missing some deeper understanding here.
+Regarding point 4, while it may be standard practice in Ruby, this one of the reasons I find Ruby development so much slower -- you're constantly referencing external documentation to know what you can and can't pass in to a function rather than have the IDE tell you what the allowable parameters are.  Maybe I'm missing some deeper understanding here.
 
 Instead, I want to base XML document generation (and eventually parsing) on Microsoft's implementation of the XmlDocument class in .NET:
 
 http://msdn.microsoft.com/en-us/library/system.xml.xmldocument.aspx
 
-This:
+This implementation:
 
 1. Is a decent object-oriented solution for creating XML documents
 2. Inherently supports dynamic XML generation
 3. Isn't DSL-ish.
+
+## A note about the code
+
+You'll find that I do certain things, like explicitly return nil when the function isn't intended to return anything.  This avoids accidental usage of a return from a function where
+that is an unintended consequence of the last line executed in the function.
 
 ## Installation
 
