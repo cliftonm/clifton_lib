@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["marc.clifton@gmail.com"]
   spec.description   = %q{A collection of useful helper classes, initially a set of classes to support creation and serialization of XML.}
   spec.summary       = %q{Collection of useful helper classes.}
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/cliftonm/clifton_lib"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)

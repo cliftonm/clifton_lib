@@ -1,29 +1,9 @@
 # CliftonLib
 
-TODO: Write a gem description
-
-## Installation
-
-Add this line to your application's Gemfile:
-
-    gem 'clifton_lib'
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install clifton_lib
-
-## Usage
-
 This is a collection of useful functionality that I require for various projects that I'm working on.
 
 In version 0.0.1, I've implemented several XML helper classes, similar to .NET's XmlDocument, to facilitate the
 creation and serialization of XML.  In this version, the support is bare bones but sufficient for what I need done.
-
-For example usage, see the xml_document_tests.rb file.
 
 Why do this?
 
@@ -53,6 +33,79 @@ This:
 1. Is a decent object-oriented solution for creating XML documents
 2. Inherently supports dynamic XML generation
 3. Isn't DSL-ish.
+
+## Installation
+
+Add this line to your application's Gemfile:
+
+    gem 'clifton_lib'
+
+And then execute:
+
+    $ bundle
+
+Or install it yourself as:
+
+    $ gem install clifton_lib
+
+## Usage
+
+XML Serialization Example:
+
+```ruby
+require 'test/unit'
+require 'clifton_lib/xml/xml_document'
+require 'clifton_lib/xml/xml_declaration_node'
+require 'clifton_lib/xml/xml_text_writer'
+
+include CliftonXml
+
+def test_serialization
+  xdoc = XmlDocument.new()
+  decl_node = xdoc.create_xml_declaration('1.0', 'UTF-8')
+  xdoc.append_child(decl_node)
+
+  products = xdoc.create_element('Products')
+  xdoc.append_child(products)
+
+  product1 = xdoc.create_element('Product')
+  id_attr1 = xdoc.create_attribute('ID')
+  name_attr1 = xdoc.create_attribute('Name')
+  id_attr1.value = '1'
+  name_attr1.value = 'Apples'
+  product1.append_attribute(id_attr1)
+  product1.append_attribute(name_attr1)
+  product1.inner_text = 'foobar'
+
+  product2 = xdoc.create_element('Product')
+  id_attr2 = xdoc.create_attribute('ID')
+  name_attr2 = xdoc.create_attribute('Name')
+  id_attr2.value = '2'
+  name_attr2.value = 'Oranges'
+  product2.append_attribute(id_attr2)
+  product2.append_attribute(name_attr2)
+
+  products.append_child(product1)
+  products.append_child(product2)
+
+  tw = XmlTextWriter.new()
+  tw.formatting = :indented
+  xdoc.save(tw)
+  output = tw.output
+  assert_equal %Q|<?xml version="1.0" encoding="UTF-8"?>\r\n<Products>\r\n  <Product ID="1" Name="Apples">foobar</Product>\r\n  <Product ID="2" Name="Oranges"/>\r\n</Products>|, output
+end
+```
+
+The result looks like:
+
+```XML
+<Products>
+  <Product ID="1" Name="Apples">foobar</Product>
+  <Product ID="2" Name="Oranges" />
+</Products>
+```
+
+For further examples, see the xml_document_tests.rb file.
 
 ## Contributing
 
