@@ -32,6 +32,10 @@ This implementation:
 2. Inherently supports dynamic XML generation
 3. Isn't DSL-ish.
 
+## Revisions
+
+0.0.1 - Initial version.
+
 ## A note about the code
 
 You'll find that I do certain things, like explicitly return nil when the function isn't intended to return anything.  This avoids accidental usage of a return from a function where
