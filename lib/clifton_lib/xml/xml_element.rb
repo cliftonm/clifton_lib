@@ -15,6 +15,7 @@ module CliftonXml
     # void append_attributes(XmlAttribute attr)
     def append_attribute(attr)
       @attributes << attr
+      attr.xml_element = self
 
       nil
     end

@@ -104,6 +104,29 @@ class XmlDocumentTests < Test::Unit::TestCase
     xdoc.save(tw)
     output = tw.output
     assert_equal %Q|<?xml version="1.0" encoding="UTF-8"?>\r\n<Products>\r\n  <Product ID="1" Name="Apples">foobar</Product>\r\n  <Product ID="2" Name="Oranges"/>\r\n</Products>|, output
-    end
   end
 
+  def test_properties
+    xdoc = XmlDocument.new()
+    decl_node = xdoc.create_xml_declaration('1.0', 'UTF-8')
+
+    # decl node is assigned the xml_document.
+    assert_equal xdoc, decl_node.xml_document
+
+    # element is assigned the xml_document.
+    elem = xdoc.create_element('Element')
+    assert_equal xdoc, elem.xml_document
+
+    # element is assigned the parent.
+    xdoc.append_child(elem)
+    assert_equal xdoc, elem.parent_node
+
+    # attribute is assigned the xml document.
+    attr = xdoc.create_attribute('Attribute')
+    assert_equal xdoc, attr.xml_document
+
+    # attribute is assigned the owning element.
+    elem.append_attribute(attr)
+    assert_equal elem, attr.xml_element
+  end
+end

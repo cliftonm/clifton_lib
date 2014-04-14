@@ -13,27 +13,43 @@ module CliftonXml
     end
 
     # XmlDeclarationNode create_xml_declaration(string version, string encoding)
+    # Returns a node that will appear at the beginning of the document as:
+    # <?xml version="[ver]" encoding="[enc]" ?>
+    # The node must still be added to the parent (root) node with XmlNode#append_child.
     def create_xml_declaration(version, encoding)
       declNode = XmlDeclarationNode.new() {
         @attributes << XmlAttribute.new() {@name='version'; @value=version}
         @attributes << XmlAttribute.new() {@name='encoding'; @value=encoding}
       }
 
+      declNode.xml_document = self
+
       declNode
     end
 
-    # XmlAttribute create_attribute(string name)
-    def create_attribute(name)
-      attr = XmlAttribute.new() {@name = name}
-
-      attr
-    end
-
     # XmlElement create_element(string name)
+    # Return an XmlElement.  Append to the desired node with XmlNode#append_child.
     def create_element(name)
-      elem = XmlElement.new() {@name = name}
+      elem = XmlElement.new() {
+        @name = name
+      }
+
+      elem.xml_document = self
 
       elem
+    end
+
+    # XmlAttribute create_attribute(string name, string val = '')
+    # Returns an XmlAttribute.  Append to the desired element with XmlElement#append_attribute.
+    def create_attribute(name, value = '')
+      attr = XmlAttribute.new() {
+        @name = name
+        @value = value
+      }
+
+      attr.xml_document = self
+
+      attr
     end
 
     def document_element()
@@ -45,6 +61,7 @@ module CliftonXml
     end
 
     # void save(XmlTextWriter writer)
+    # Writes the XML tree to the string buffer in XmlTextWriter.
     def save(writer)
       write_nodes(writer, @child_nodes)
 

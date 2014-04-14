@@ -5,6 +5,7 @@ module CliftonXml
     attr_accessor :name
     attr_accessor :inner_text
     attr_accessor :parent_node    # Annoying rubyism -- if in the class itself, property must be read/writeable.
+    attr_accessor :xml_document
     attr_reader :attributes
     attr_reader :child_nodes
 
@@ -15,6 +16,7 @@ module CliftonXml
       @parent_node = nil
       @name = nil
       @inner_text = nil
+      @xml_document = nil
 
       self
     end
