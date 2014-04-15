@@ -34,6 +34,8 @@ This implementation:
 
 ## Revisions
 
+0.0.3 - Added support for valueless attributes.  Example: <nav class="top-bar" data-topbar/>
+0.0.2 - Additional internal properties for associating the XmlDocument to elements and XmlElement to attributes.
 0.0.1 - Initial version.
 
 ## A note about the code

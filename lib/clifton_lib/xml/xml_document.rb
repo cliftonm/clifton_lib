@@ -123,7 +123,13 @@ module CliftonXml
         attrs = []
 
         node.attributes.each do |attr|
+          # special case:
+          # example: <nav class="top-bar" data-topbar>
+          if attr.value.nil?
+            attrs << attr.name
+          else
           attrs << attr.name + '="' + attr.value + '"'
+          end
         end
 
         # separate them with a space

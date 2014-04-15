@@ -129,4 +129,20 @@ class XmlDocumentTests < Test::Unit::TestCase
     elem.append_attribute(attr)
     assert_equal elem, attr.xml_element
   end
+
+  def test_attribute_without_value
+    # special case:
+    # example: <nav class="top-bar" data-topbar>
+    xdoc = XmlDocument.new()
+    elem = xdoc.create_element('Element')
+    xdoc.append_child(elem)
+    attr = xdoc.create_attribute('Attribute', nil)
+    elem.append_attribute(attr)
+    tw = XmlTextWriter.new()
+    tw.formatting = :indented
+    xdoc.save(tw)
+    output = tw.output
+    assert_equal %Q|<Element Attribute/>|, output
+
+  end
 end
