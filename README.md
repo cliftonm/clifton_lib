@@ -34,9 +34,11 @@ This implementation:
 
 ## Revisions
 
+Published 0.0.5 - Added support to disallow a closing tag for HTML5 compatibility.  For example, <img> is valid, <img></img> is seen as a stray ending tag.
+0.0.4 - Added support to disallow self-closing tags for HTML5 compatibility.  For example, <div>...</div> is valid, </div> is not.
 0.0.3 - Added support for valueless attributes.  Example: <nav class="top-bar" data-topbar/>
 0.0.2 - Additional internal properties for associating the XmlDocument to elements and XmlElement to attributes.
-0.0.1 - Initial version.
+Published 0.0.1 - Initial version.
 
 ## A note about the code
 

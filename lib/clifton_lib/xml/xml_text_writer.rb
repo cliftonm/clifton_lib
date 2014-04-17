@@ -5,6 +5,7 @@ module CliftonXml
   # TODO: Implement streams, passing in an output stream to the constructor, like a StringWriter or FileWriter stream.
   class XmlTextWriter
     attr_accessor :formatting
+    attr_accessor :allow_self_closing_tags
     attr_reader :output
 
     # XmlTextWriter.new()
@@ -12,6 +13,7 @@ module CliftonXml
       @output = ''
       @indent = 0
       @formatting = :none
+      @allow_self_closing_tags = true       # HTML5 compatibility, set to false.
     end
 
     # void write(string str)

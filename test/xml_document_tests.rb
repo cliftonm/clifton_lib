@@ -143,6 +143,32 @@ class XmlDocumentTests < Test::Unit::TestCase
     xdoc.save(tw)
     output = tw.output
     assert_equal %Q|<Element Attribute/>|, output
+  end
+
+  def test_no_self_closing_tags
+    xdoc = XmlDocument.new()
+    elem = xdoc.create_element('Element')
+    xdoc.append_child(elem)
+    tw = XmlTextWriter.new()
+    tw.allow_self_closing_tags = false
+    tw.formatting = :indented
+    xdoc.save(tw)
+    output = tw.output
+    assert_equal %Q|<Element></Element>|, output
+
+  end
+
+  def test_no_closing_tag
+    xdoc = XmlDocument.new()
+    elem = xdoc.create_element('img')
+    elem.html_closing_tag = false
+    xdoc.append_child(elem)
+    tw = XmlTextWriter.new()
+    tw.allow_self_closing_tags = false
+    tw.formatting = :indented
+    xdoc.save(tw)
+    output = tw.output
+    assert_equal %Q|<img>|, output
 
   end
 end

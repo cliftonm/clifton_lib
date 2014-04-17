@@ -6,6 +6,7 @@ module CliftonXml
     attr_accessor :inner_text
     attr_accessor :parent_node    # Annoying rubyism -- if in the class itself, property must be read/writeable.
     attr_accessor :xml_document
+    attr_accessor :html_closing_tag    # Certain HTML closing tags are seen as "stray" if the exist, so we don't emit them if this is set to false.
     attr_reader :attributes
     attr_reader :child_nodes
 
@@ -17,6 +18,7 @@ module CliftonXml
       @name = nil
       @inner_text = nil
       @xml_document = nil
+      @html_closing_tag = true
 
       self
     end

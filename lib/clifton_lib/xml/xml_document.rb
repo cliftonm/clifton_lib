@@ -104,8 +104,17 @@ module CliftonXml
               writer.write('</' + node.name + '>')
               crlf_if_more_nodes(writer, nodes, idx)
             else
-              # if no children and no inner text, use the abbreviated closing tag token.
-              writer.write('/>')
+              # if no children and no inner text, use the abbreviated closing tag token unless no closing tag is required and unless self closing tags are not allowed.
+              if node.html_closing_tag
+                if writer.allow_self_closing_tags
+                  writer.write('/>')
+                else
+                  writer.write('></' + node.name + '>')
+                end
+              else
+                writer.write('>')
+              end
+
               crlf_if_more_nodes(writer, nodes, idx)
             end
           end
