@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    clifton_lib (0.0.5)
+    clifton_lib (0.0.6)
 
 GEM
   remote: https://rubygems.org/

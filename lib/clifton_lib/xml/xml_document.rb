@@ -3,6 +3,7 @@ require "clifton_lib/xml/xml_attribute"
 require "clifton_lib/xml/xml_element"
 require "clifton_lib/xml/xml_node"
 require "clifton_lib/xml/xml_declaration_node"
+require "clifton_lib/xml/xml_fragment"
 
 module CliftonXml
   class XmlDocument < XmlNode
@@ -32,6 +33,17 @@ module CliftonXml
     def create_element(name)
       elem = XmlElement.new() {
         @name = name
+      }
+
+      elem.xml_document = self
+
+      elem
+    end
+
+    # XmlFragment create_xml_fragment(string fragment_text)
+    def create_xml_fragment(text)
+      elem = XmlFragment.new() {
+        @text = text
       }
 
       elem.xml_document = self
@@ -80,6 +92,9 @@ module CliftonXml
           write_attributes(writer, node)
           writer.write('?>')
           writer.new_line()
+        elsif node.is_a?(XmlFragment)
+          # if it's a fragment, just write the fragment, which is expected to be a string.
+          writer.write(node.text)
         else
           # begin element tag and attributes
           writer.write('<' + node.name)

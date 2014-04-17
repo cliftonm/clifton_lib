@@ -171,4 +171,17 @@ class XmlDocumentTests < Test::Unit::TestCase
     assert_equal %Q|<img>|, output
 
   end
+
+  def test_xml_fragment
+    xdoc = XmlDocument.new()
+    products = xdoc.create_element('Products')
+    xdoc.append_child(products)
+    frag = xdoc.create_xml_fragment('<Injected/>')
+    xdoc.append_child(frag)
+    tw = XmlTextWriter.new()
+    tw.formatting = :indented
+    xdoc.save(tw)
+    output = tw.output
+    assert_equal %Q|<Products/>\r\n<Injected/>|, output
+  end
 end
