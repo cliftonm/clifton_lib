@@ -34,7 +34,8 @@ This implementation:
 
 ## Revisions
 
-Published 0.0.6 - Added XmlFragment
+Published 0.0.7 - Added XmlFragment
+0.0.6 -
 Published 0.0.5 - Added support to disallow a closing tag for HTML5 compatibility.  For example, <img> is valid, <img></img> is seen as a stray ending tag.
 0.0.4 - Added support to disallow self-closing tags for HTML5 compatibility.  For example, <div>...</div> is valid, </div> is not.
 0.0.3 - Added support for valueless attributes.  Example: <nav class="top-bar" data-topbar/>
