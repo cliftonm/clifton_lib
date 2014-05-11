@@ -94,7 +94,7 @@ module CliftonXml
           writer.new_line()
         elsif node.is_a?(XmlFragment)
           # if it's a fragment, just write the fragment, which is expected to be a string.
-          writer.write(node.text)
+          writer.write_fragment(node.text)
         else
           # begin element tag and attributes
           writer.write('<' + node.name)
@@ -106,7 +106,7 @@ module CliftonXml
             writer.write('</' + node.name + '>')
             crlf_if_more_nodes(writer, nodes, idx)
           else
-          # Children are allowed only if there is no inner text.
+            # Children are allowed only if there is no inner text.
             if node.has_child_nodes()
               # close element tag, indent, and recurse.
               writer.write('>')
@@ -152,7 +152,7 @@ module CliftonXml
           if attr.value.nil?
             attrs << attr.name
           else
-          attrs << attr.name + '="' + attr.value + '"'
+            attrs << attr.name + '="' + attr.value + '"'
           end
         end
 
@@ -161,7 +161,7 @@ module CliftonXml
 
         # requires a leading space as well to separate from the element name.
         writer.write(' ' + attr_str)
-        end
+      end
 
       nil
     end

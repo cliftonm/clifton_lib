@@ -34,6 +34,7 @@ This implementation:
 
 ## Revisions
 
+Published 0.0.8 - Fixed indentation issues with XmlFragments
 Published 0.0.7 - Added XmlFragment
 0.0.6 -
 Published 0.0.5 - Added support to disallow a closing tag for HTML5 compatibility.  For example, <img> is valid, <img></img> is seen as a stray ending tag.

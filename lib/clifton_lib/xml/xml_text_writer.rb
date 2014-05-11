@@ -16,9 +16,23 @@ module CliftonXml
       @allow_self_closing_tags = true       # HTML5 compatibility, set to false.
     end
 
-    # void write(string str)
     def write(str)
       @output << str
+    end
+
+    # void write(string str)
+    def write_fragment(str)
+      if @formatting == :indented
+        # Take the fragment, split up the CRLF's, and write out in an indented manner.
+        # Let the formatting of the fragment handle its indentation at our current indent level.
+        lines = str.split("\r\n")
+        lines.each_with_index do |line, idx|
+          @output << line
+          new_line() if idx < lines.count - 1       # No need for a new line on the last line.
+        end
+      else
+        @output << str
+      end
 
       nil
     end
