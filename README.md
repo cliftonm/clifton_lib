@@ -34,6 +34,7 @@ This implementation:
 
 ## Revisions
 
+Published 0.0.10 - Fixed issue with child nodes and inner text, also XmlDocument instance references itself since it's derived from XmlNode.
 Published 0.0.9 - Must remember to push commits before pushing gem
 Published 0.0.8 - Fixed indentation issues with XmlFragments, Bad Push
 Published 0.0.7 - Added XmlFragment
