@@ -11,6 +11,7 @@ module CliftonXml
     # XmlDocument.new()
     def initialize
       super()
+      @xml_document = self
     end
 
     # XmlDeclarationNode create_xml_declaration(string version, string encoding)
@@ -82,6 +83,14 @@ module CliftonXml
 
     private
 
+    def write_child_nodes(writer, node)
+      writer.indent()
+      writer.new_line()
+      write_nodes(writer, node.child_nodes)
+      writer.outdent()
+      writer.new_line()
+    end
+
     # void write_nodes(XmlTextWriter writer, XmlNodes[] nodes)
     def write_nodes(writer, nodes)
       nodes.each_with_index do |node, idx|
@@ -103,6 +112,11 @@ module CliftonXml
           # if inner text, write it out now.
           if node.inner_text
             writer.write('>' + node.inner_text)
+
+            if node.has_child_nodes()
+              write_child_nodes(writer, node)
+            end
+
             writer.write('</' + node.name + '>')
             crlf_if_more_nodes(writer, nodes, idx)
           else
@@ -110,11 +124,7 @@ module CliftonXml
             if node.has_child_nodes()
               # close element tag, indent, and recurse.
               writer.write('>')
-              writer.indent()
-              writer.new_line()
-              write_nodes(writer, node.child_nodes)
-              writer.outdent()
-              writer.new_line()
+              write_child_nodes(writer, node)
               # close the element
               writer.write('</' + node.name + '>')
               crlf_if_more_nodes(writer, nodes, idx)
@@ -135,7 +145,6 @@ module CliftonXml
           end
         end
       end
-
       nil
     end
 
